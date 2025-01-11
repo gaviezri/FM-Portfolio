@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import Logo from "./Logo";
 
 const navigation = [
     { name: "Home", href: "/" },
@@ -24,7 +25,7 @@ export default function Navbar() {
             >
                 <div className="flex lg:flex-1">
                     <Link href="/" className="-m-1.5 p-1.5 text-xl font-bold">
-                        ARCHITECT
+                        <Logo />
                     </Link>
                 </div>
                 <div className="flex lg:hidden">
@@ -63,7 +64,7 @@ export default function Navbar() {
                                 href="/"
                                 className="-m-1.5 p-1.5 text-xl font-bold"
                             >
-                                ARCHITECT
+                                <Logo />
                             </Link>
                             <button
                                 type="button"
