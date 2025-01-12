@@ -151,7 +151,7 @@ export async function getProject(category: string, projectId: string) {
 
         const projectData = JSON.parse(manifestContent);
         const images = imageFiles.map((file) => ({
-            src: `/categories/${category}/${projectId}/images/${file}`,
+            src: `categories/${category}/${projectId}/images/${file}`,
             alt: file.split(".")[0],
         }));
 
