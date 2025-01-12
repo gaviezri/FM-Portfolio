@@ -1,4 +1,4 @@
-import { getProject } from "@/utils/projects";
+import { getProject, getAllProjects } from "@/utils/projects";
 import ProjectPage from "@/components/ProjectPage";
 import { Metadata } from "next";
 
@@ -7,6 +7,14 @@ interface ProjectPageProps {
         category: string;
         projectId: string;
     }>;
+}
+
+export async function generateStaticParams() {
+    const allProjects = await getAllProjects();
+    return allProjects.map((project) => ({
+        category: project.category,
+        projectId: project.id,
+    }));
 }
 
 export async function generateMetadata({

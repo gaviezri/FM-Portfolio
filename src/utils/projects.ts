@@ -69,9 +69,14 @@ export async function getProjectsForCategory(
         );
 
         // Remove any null entries and type cast the result
-        return projects.filter(
-            (project): project is ProjectInfo => project !== null
-        );
+        return projects
+            .filter((project): project is ProjectInfo => project !== null)
+            .sort(
+                (project1, project2) =>
+                    Number.parseInt(project1.year) -
+                    Number.parseInt(project2.year)
+            )
+            .reverse();
     } catch (error) {
         console.error(`Error reading category directory ${category}:`, error);
         return [];
@@ -159,4 +164,51 @@ export async function getProject(category: string, projectId: string) {
         console.error(`Error loading project ${projectId}:`, error);
         throw new Error(`Project not found: ${projectId}`);
     }
+}
+
+export async function getAllProjects() {
+    const categories = ["commercial", "residential"];
+    const allProjects = [];
+
+    for (const category of categories) {
+        try {
+            const categoryPath = path.join(
+                process.cwd(),
+                "public",
+                "categories",
+                category
+            );
+            const items = await fs.readdir(categoryPath, {
+                withFileTypes: true,
+            });
+            const projectDirs = items.filter((item) => item.isDirectory());
+
+            for (const dir of projectDirs) {
+                try {
+                    const manifestPath = path.join(
+                        categoryPath,
+                        dir.name,
+                        "manifest.json"
+                    );
+                    const manifestContent = await fs.readFile(
+                        manifestPath,
+                        "utf-8"
+                    );
+                    const projectData = JSON.parse(manifestContent);
+
+                    allProjects.push({
+                        ...projectData,
+                        id: dir.name,
+                        category: category,
+                    });
+                } catch (error) {
+                    console.error(`Error loading project ${dir.name}:`, error);
+                }
+            }
+        } catch (error) {
+            console.error(`Error reading category ${category}:`, error);
+        }
+    }
+
+    return allProjects;
 }

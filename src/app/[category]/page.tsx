@@ -6,6 +6,10 @@ interface PageProps {
     params: Promise<{ category: string }>;
 }
 
+export function generateStaticParams() {
+    return [{ category: "commercial" }, { category: "residential" }];
+}
+
 export async function generateMetadata({
     params,
 }: PageProps): Promise<Metadata> {
