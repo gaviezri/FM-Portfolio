@@ -1,7 +1,6 @@
 import { getProject, getAllProjects } from "@/utils/projects";
 import ProjectPage from "@/components/ProjectPage";
 import { Metadata } from "next";
-import { createProjectPath } from "@/utils/paths";
 
 interface ProjectPageProps {
     params: Promise<{
@@ -33,6 +32,7 @@ export async function generateMetadata({
             description: project.description,
         };
     } catch (error) {
+        console.log(error);
         return {
             title: "Project Not Found",
         };

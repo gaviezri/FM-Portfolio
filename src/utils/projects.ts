@@ -1,13 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { ProjectInfo } from "@/types";
-import {
-    encodePathSegment,
-    decodePathSegment,
-    createProjectPath,
-    createImagePath,
-    toFileSystemPath,
-} from "./paths";
+import { encodePathSegment, createImagePath, toFileSystemPath } from "./paths";
 
 export async function getAllProjects() {
     const categories = ["commercial", "residential"];
