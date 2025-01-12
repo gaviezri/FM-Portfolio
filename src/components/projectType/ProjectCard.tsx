@@ -50,6 +50,7 @@ const ProjectCard = ({
             onClick={() => navigate(`/${category}/${project.id}`)}
         >
             <Image
+                priority
                 src={project.thumbnail}
                 alt={project.title}
                 fill

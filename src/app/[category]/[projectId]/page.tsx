@@ -11,10 +11,13 @@ interface ProjectPageProps {
 
 export async function generateStaticParams() {
     const allProjects = await getAllProjects();
-    return allProjects.map((project) => ({
-        category: project.category,
-        projectId: project.id,
-    }));
+    const result = allProjects.map((project) => {
+        return {
+            category: project.category,
+            projectId: project.id,
+        };
+    });
+    return result;
 }
 
 export async function generateMetadata({

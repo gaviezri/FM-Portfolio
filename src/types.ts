@@ -7,6 +7,7 @@ export interface ProjectInfo {
     area: string;
     thumbnail: string;
     images: string[];
+    category?: string;
 }
 
 export interface CategoryInfo {
