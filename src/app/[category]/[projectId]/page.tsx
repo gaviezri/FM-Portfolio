@@ -13,7 +13,7 @@ export async function generateStaticParams() {
     const allProjects = await getAllProjects();
     return allProjects.map((project) => ({
         category: project.category,
-        projectId: project.id,
+        projectId: encodeURIComponent(project.id),
     }));
 }
 

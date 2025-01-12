@@ -87,10 +87,8 @@ export default function ProjectPage({ project }: ProjectPageProps) {
                                 }`}
                             >
                                 <Image
-                                    //@ts-expect-error wtf
-                                    src={image.src}
-                                    //@ts-expect-error wtf
-                                    alt={image.alt}
+                                    src={image}
+                                    alt={"project photo"}
                                     fill
                                     className="object-cover"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
