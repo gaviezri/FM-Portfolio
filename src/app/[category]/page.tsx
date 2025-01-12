@@ -1,41 +1,28 @@
 import { getProjectsForCategory } from "@/utils/projects";
-import CategoryPage from "@/components/CategoryPage";
+import ProjectFeed from "@/components/ProjectsFeed";
 import { Metadata } from "next";
 
 interface PageProps {
-    params: {
-        category: string;
-    };
+    params: Promise<{ category: string }>;
 }
 
-// Optional: Generate metadata for the page
 export async function generateMetadata({
     params,
 }: PageProps): Promise<Metadata> {
+    const resolvedParams = await Promise.resolve(params);
+    const category = resolvedParams.category.toLowerCase();
+
     return {
         title: `${
-            params.category.charAt(0).toUpperCase() + params.category.slice(1)
+            category.charAt(0).toUpperCase() + category.slice(1)
         } Projects`,
     };
 }
 
-export default async function Page({
-    params,
-}: {
-    params: { category: string };
-}) {
-    // Validate category parameter
-    const validCategories = ["residential", "commercial"];
-    const category = validCategories.includes(params.category.toLowerCase())
-        ? params.category.toLowerCase()
-        : "residential"; // Default fallback
-
+export default async function Page({ params }: PageProps) {
+    const resolvedParams = await Promise.resolve(params);
+    const category = resolvedParams.category.toLowerCase();
     const projects = await getProjectsForCategory(category);
 
-    return <CategoryPage initialProjects={projects} />;
-}
-
-// Add type safety for valid category paths
-export function generateStaticParams() {
-    return [{ category: "residential" }, { category: "commercial" }];
+    return <ProjectFeed category={category} projects={projects} />;
 }

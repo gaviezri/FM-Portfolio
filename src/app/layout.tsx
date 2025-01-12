@@ -11,6 +11,16 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
+            <head>
+                <title>
+                    Florencia Michelli | Architecture & Interior Design | Tel
+                    Aviv
+                </title>
+                <meta
+                    name="Architect & Interior Designer"
+                    content="Florencia Michelli Portfolio"
+                />
+            </head>
             <body className={inter.className}>
                 <Navbar />
                 <main className="min-h-screen pt-16">{children}</main>

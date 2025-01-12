@@ -6,7 +6,7 @@ export interface ProjectInfo {
     location: string;
     area: string;
     thumbnail: string;
-    images?: unknown[];
+    images: string[];
 }
 
 export interface CategoryInfo {

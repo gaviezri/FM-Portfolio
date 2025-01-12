@@ -1,7 +1,5 @@
-import React from "react";
-
 const Logo = () => {
-    return <div>Florencia Michelli</div>;
+    return <div className="font-light">Florencia Michelli</div>;
 };
 
 export default Logo;

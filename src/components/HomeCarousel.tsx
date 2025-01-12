@@ -17,7 +17,7 @@ export default function HomeCarousel({ slides }: HomeCarouselProps) {
         // Auto-advance slides
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 5000); // Change slide every 5 seconds
+        }, 4000); // Change slide every 4 seconds
 
         return () => clearInterval(timer);
     }, [slides.length]);
@@ -54,7 +54,7 @@ export default function HomeCarousel({ slides }: HomeCarouselProps) {
                     onClick={handleImageClick}
                 >
                     <Image
-                        src={slide.thumbnailUrl}
+                        src={slide.thumbnail}
                         alt={slide.title}
                         fill
                         className="object-cover"
