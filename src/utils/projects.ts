@@ -86,9 +86,6 @@ export async function getAllProjects() {
     await Promise.all(
         categories.map(async (category) => {
             const projectsForCategory = await getProjectsForCategory(category);
-            projectsForCategory.forEach((project) => {
-                project.category = category;
-            });
             allProjects = [...allProjects, ...projectsForCategory];
         })
     );
@@ -190,6 +187,7 @@ export async function getProject(category: string, projectId: string) {
         return {
             ...projectData,
             id: projectId,
+            category: category,
             images,
         };
     } catch (error) {
