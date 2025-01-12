@@ -1,7 +1,13 @@
-// utils/projects.ts
 import fs from "fs/promises";
 import path from "path";
 import { ProjectInfo } from "@/types";
+import {
+    encodePathSegment,
+    decodePathSegment,
+    createProjectPath,
+    createImagePath,
+    toFileSystemPath,
+} from "./paths";
 
 export async function getAllProjects() {
     const categories = ["commercial", "residential"];
@@ -35,7 +41,7 @@ export async function getAllProjects() {
 
                     allProjects.push({
                         ...projectData,
-                        id: dir.name, // Store original name, will be encoded when used in URLs
+                        id: encodePathSegment(dir.name),
                         category: category,
                     });
                 } catch (error) {
@@ -52,8 +58,7 @@ export async function getAllProjects() {
 
 export async function getProject(category: string, projectId: string) {
     try {
-        // Since projectId comes from URL, it's encoded - decode it once
-        const decodedProjectId = decodeURIComponent(projectId);
+        const decodedProjectId = toFileSystemPath(projectId);
         const manifestPath = path.join(
             process.cwd(),
             "public",
@@ -78,14 +83,13 @@ export async function getProject(category: string, projectId: string) {
         ]);
 
         const projectData = JSON.parse(manifestContent);
-        const images = imageFiles.map(
-            (file) =>
-                `/categories/${category}/${decodedProjectId}/images/${file}`
+        const images = imageFiles.map((file) =>
+            createImagePath(category, decodedProjectId, file)
         );
 
         return {
             ...projectData,
-            id: decodedProjectId,
+            id: encodePathSegment(decodedProjectId),
             images,
         };
     } catch (error) {
@@ -128,31 +132,14 @@ export async function getProjectsForCategory(
                     );
                     const projectData = JSON.parse(manifestContent);
 
-                    if (!projectData.title || !projectData.thumbnail) {
-                        console.error(
-                            `Missing required fields in manifest for ${dir.name}`
-                        );
-                        return null;
-                    }
-
-                    const imagesPath = path.join(
-                        categoryPath,
-                        dir.name,
-                        "images"
-                    );
-                    const images = await collectImagesSrc(
-                        category,
-                        dir.name,
-                        imagesPath
-                    );
-
                     return {
                         ...projectData,
-                        id: dir.name,
-                        thumbnail: `/categories/${category}/${encodeURIComponent(
-                            dir.name
-                        )}/images/${encodeURIComponent(projectData.thumbnail)}`,
-                        images,
+                        id: encodePathSegment(dir.name),
+                        thumbnail: createImagePath(
+                            category,
+                            dir.name,
+                            projectData.thumbnail
+                        ),
                     };
                 } catch (error) {
                     console.error(
@@ -166,32 +153,9 @@ export async function getProjectsForCategory(
 
         return projects
             .filter((project): project is ProjectInfo => project !== null)
-            .sort(
-                (project1, project2) =>
-                    Number.parseInt(project2.year) -
-                    Number.parseInt(project1.year)
-            );
+            .sort((a, b) => Number.parseInt(b.year) - Number.parseInt(a.year));
     } catch (error) {
         console.error(`Error reading category directory ${category}:`, error);
-        return [];
-    }
-}
-
-async function collectImagesSrc(
-    category: string,
-    projectId: string,
-    imagesDir: string
-): Promise<string[]> {
-    try {
-        const files = await fs.readdir(imagesDir);
-        return files.map(
-            (file) =>
-                `/categories/${category}/${encodeURIComponent(
-                    projectId
-                )}/images/${encodeURIComponent(file)}`
-        );
-    } catch (error) {
-        console.error(`Error reading directory ${imagesDir}:`, error);
         return [];
     }
 }
