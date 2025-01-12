@@ -17,7 +17,7 @@ export default function HomeCarousel({ slides }: HomeCarouselProps) {
         // Auto-advance slides
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 4000); // Change slide every 4 seconds
+        }, 3000); // Change slide every 4 seconds
 
         return () => clearInterval(timer);
     }, [slides.length]);

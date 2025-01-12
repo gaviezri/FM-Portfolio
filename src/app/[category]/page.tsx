@@ -1,5 +1,5 @@
 import { getProjectsForCategory } from "@/utils/projects";
-import ProjectFeed from "@/components/ProjectsFeed";
+import ProjectFeed from "@/components/projectType/ProjectsFeed";
 import { Metadata } from "next";
 
 interface PageProps {

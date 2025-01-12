@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { ProjectInfo } from "../types";
+import { ProjectInfo } from "../../types";
 
 interface ProjectGridProps {
     category: string;

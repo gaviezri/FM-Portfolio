@@ -1,5 +1,5 @@
-import HomeCarousel from "@/components/HomeCarousel";
-import Logo from "@/components/Logo";
+import HomeCarousel from "@/components/topBar/HomeCarousel";
+import Logo from "@/components/topBar/Logo";
 import { getProjectsForCategory } from "@/utils/projects";
 import { Slide } from "@/types";
 

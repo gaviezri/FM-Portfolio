@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { ProjectInfo } from "@/types";
-import { encodePathSegment, createImagePath, toFileSystemPath } from "./paths";
+import { encodePathSegment, createImagePath } from "./paths";
 
 export async function getAllProjects() {
     const categories = ["commercial", "residential"];
@@ -52,7 +52,8 @@ export async function getAllProjects() {
 
 export async function getProject(category: string, projectId: string) {
     try {
-        const decodedProjectId = toFileSystemPath(projectId);
+        console.log("@@@\n@@@\n@@@\n" + projectId + "@@@");
+        const decodedProjectId = projectId.replace(/%20/g, " ");
         const manifestPath = path.join(
             process.cwd(),
             "public",
@@ -83,7 +84,7 @@ export async function getProject(category: string, projectId: string) {
 
         return {
             ...projectData,
-            id: encodePathSegment(decodedProjectId),
+            id: decodedProjectId,
             images,
         };
     } catch (error) {
