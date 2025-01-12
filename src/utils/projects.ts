@@ -129,6 +129,7 @@ export async function getProjectsForCategory(
 
                     return {
                         ...projectData,
+                        category: category,
                         thumbnail: createImagePath(
                             category,
                             dir.name,
