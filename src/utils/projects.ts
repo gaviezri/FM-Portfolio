@@ -92,6 +92,11 @@ export async function getProject(category: string, projectId: string) {
             ...projectData,
             id: projectId,
             category: category,
+            thumbnail: createImagePath(
+                category,
+                projectId,
+                projectData.thumbnail
+            ),
             images,
         };
     } catch (error) {

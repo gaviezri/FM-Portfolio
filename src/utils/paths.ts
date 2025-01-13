@@ -3,5 +3,7 @@ export function createImagePath(
     projectId: string,
     imageName: string
 ): string {
-    return `categories/${category}/${projectId}/images/${imageName}`;
+    return `/categories/${category}/${projectId}/images/${decodeURIComponent(
+        imageName
+    )}`;
 }

@@ -31,7 +31,7 @@ export async function generateMetadata({
         );
 
         return {
-            title: project.title,
+            title: "Florencia Michelli | Architecture & Interior Design | Tel Aviv",
             description: project.description,
         };
     } catch (error) {
