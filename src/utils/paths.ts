@@ -30,7 +30,7 @@ export function createImagePath(
     projectId: string,
     imageName: string
 ): string {
-    return `/categories/${category}/${encodePathSegment(
+    return `categories/${category}/${encodePathSegment(
         projectId
     )}/images/${encodePathSegment(imageName)}`;
 }
