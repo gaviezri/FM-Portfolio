@@ -1,3 +1,4 @@
+"use client";
 import { ProjectInfo } from "@/types";
 
 interface ProjectFeedProps {
