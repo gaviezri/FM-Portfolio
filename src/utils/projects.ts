@@ -51,7 +51,7 @@ export async function getProjectsForCategory(
 
         return projects
             .filter((project): project is ProjectInfo => project !== null)
-            .sort((a, b) => Number.parseInt(b.year) - Number.parseInt(a.year));
+            .sort((a, b) => b.ordinal - a.ordinal);
     } catch (error) {
         console.error(`Error reading category directory ${category}:`, error);
         return [];

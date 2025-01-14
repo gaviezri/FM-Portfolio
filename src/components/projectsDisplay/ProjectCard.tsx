@@ -5,7 +5,6 @@ interface ProjectFeedProps {
     index: number;
     category: string;
     project: ProjectInfo;
-    navigate: (route: string) => void;
     columnIndex: number;
     isPositionedMiddle: boolean;
 }
@@ -13,14 +12,15 @@ interface ProjectFeedProps {
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";
+import { useRouter } from "next/navigation";
 
 const ProjectCard = ({
     project,
     category,
-    navigate,
     columnIndex,
     isPositionedMiddle,
 }: ProjectFeedProps) => {
+    const router = useRouter();
     const [isVisible, setIsVisible] = useState(false);
     const { ref, inView } = useInView({
         threshold: 0.2,
@@ -48,7 +48,7 @@ const ProjectCard = ({
                                 : "translate-y-32 opacity-0"
                         }
             `}
-            onClick={() => navigate(`/${category}/${project.id}`)}
+            onClick={() => router.push(`/${category}/${project.id}`)}
         >
             <Image
                 priority

@@ -8,6 +8,7 @@ export interface ProjectInfo {
     thumbnail: string;
     images: string[];
     category?: string;
+    ordinal: number;
 }
 
 export interface CategoryInfo {

@@ -1,5 +1,18 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 const Logo = () => {
-    return <div className="font-light">Florencia Michelli</div>;
+    const router = useRouter();
+    return (
+        <div
+            onClick={() => {
+                router.push("/");
+            }}
+            className="font-light"
+        >
+            Florencia Michelli
+        </div>
+    );
 };
 
 export default Logo;

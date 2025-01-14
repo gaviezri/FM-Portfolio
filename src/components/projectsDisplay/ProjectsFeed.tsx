@@ -1,12 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useInView } from "react-intersection-observer";
 import { useMount } from "@/hooks/UseMount";
-import ProjectCard from "./ProjectCard";
 import FeedLoading from "./FeedLoading";
-import { getCardPosition, isLastRow } from "@/utils/feed";
 import { ProjectInfo } from "@/types";
+import ProjectCardWrapper from "./ProjectCardWrapper";
 
 interface ProjectFeedProps {
     category: string;
@@ -14,7 +12,6 @@ interface ProjectFeedProps {
 }
 
 const ProjectFeed = ({ category, projects }: ProjectFeedProps) => {
-    const router = useRouter();
     const [displayedProjects, setDisplayedProjects] = useState<ProjectInfo[]>(
         []
     );
@@ -58,37 +55,16 @@ const ProjectFeed = ({ category, projects }: ProjectFeedProps) => {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-                {displayedProjects.map((project, index) => {
-                    const cardPosition = getCardPosition(
-                        index,
-                        displayedProjects,
-                        totalColumns
-                    );
-                    const lastRow = isLastRow(
-                        index,
-                        displayedProjects.length,
-                        totalColumns
-                    );
-                    const columnIndex = index % totalColumns;
-                    return (
-                        <div
-                            key={`${category}-${project.id}-${index}`}
-                            className={cardPosition}
-                        >
-                            <ProjectCard
-                                project={project}
-                                index={index}
-                                navigate={router.push}
-                                category={category}
-                                columnIndex={columnIndex}
-                                isPositionedMiddle={
-                                    (columnIndex === 1 && !lastRow) ||
-                                    (lastRow && cardPosition === "col-start-2")
-                                }
-                            />
-                        </div>
-                    );
-                })}
+                {displayedProjects.map((project, index) => (
+                    <ProjectCardWrapper
+                        key={index}
+                        project={project}
+                        index={index}
+                        totalDisplayedProjects={displayedProjects.length}
+                        totalColumns={totalColumns}
+                        category={category}
+                    />
+                ))}
             </div>
 
             {displayedProjects.length < projects.length && (
