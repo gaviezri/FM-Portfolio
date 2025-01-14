@@ -16,3 +16,7 @@ export function createImagePath(
 export function createStaticPath(path: string): string {
     return `${basePath}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+export function createPressThumbnailPath(articleName: string) {
+    return `${basePath}/press/${articleName}/thumbnail.jpg`;
+}

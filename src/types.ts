@@ -23,3 +23,12 @@ export interface Slide {
     title: string;
     thumbnail: string;
 }
+
+export interface PublicationInfo {
+    title: string;
+    outlet: string;
+    date: string;
+    description: string;
+    url: string;
+    thumbnail?: string;
+}
