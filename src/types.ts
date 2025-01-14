@@ -31,4 +31,5 @@ export interface PublicationInfo {
     description: string;
     url: string;
     thumbnail?: string;
+    ordinal: number;
 }

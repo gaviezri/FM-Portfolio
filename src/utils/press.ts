@@ -19,7 +19,9 @@ export const collectPressPublications = async () => {
             content.thumbnail = createPressThumbnailPath(dir.name);
             return content;
         });
-        return Promise.all(publications);
+        return (await Promise.all(publications)).sort(
+            (a, b) => a.ordinal - b.ordinal
+        );
     } catch (e) {
         console.log("ERROR @ press.ts:" + e);
         return [];
