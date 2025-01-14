@@ -3,7 +3,12 @@ const nextConfig = {
     output: "export",
     distDir: "dist",
     cleanDistDir: true,
-    //@ts-expect-error unknown type
+    basePath: process.env.NODE_ENV === "production" ? "/FM-Portfolio" : "", // Replace 'FM-Portfolio' with your repo name
+    assetPrefix: process.env.NODE_ENV === "production" ? "/FM-Portfolio/" : "",
+    images: {
+        unoptimized: true,
+    },
+    //@ts-expect-error unknown
     webpack: (config, { dev }) => {
         if (dev) {
             config.watchOptions = {
@@ -12,18 +17,6 @@ const nextConfig = {
             };
         }
         return config;
-    },
-    images: {
-        unoptimized: true,
-        domains: [], // Add specific domains for remote images, if any.
-        remotePatterns: [
-            {
-                protocol: "http",
-                hostname: "localhost",
-                port: "3000", // Specify port explicitly if using localhost.
-                pathname: "**", // Allow all paths.
-            },
-        ],
     },
 };
 

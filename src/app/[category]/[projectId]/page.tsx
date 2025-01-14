@@ -1,5 +1,5 @@
 import { getProject, getAllProjects } from "@/utils/projects";
-import ProjectPage from "@/components/projectType/ProjectPage";
+import ProjectPage from "@/components/projectsDisplay/ProjectPage";
 import { Metadata } from "next";
 
 interface ProjectPageProps {
